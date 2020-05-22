@@ -11,22 +11,22 @@ import com.lawencon.penjualantiket.model.DetailTransaksi;
 @Service
 public class DetailTransaksiServiceImpl implements DetailTransaksiService {
 
-	private String[] keberangkatanPesawat = { "Senin, 25 Mei 2020, 08:00 WIB", "Selasa, 26 Mei 2020, 13:00 WIB",
-			"Rabu, 27 Mei 2020, 19:00 WIB" };
+	private String[] keberangkatanPesawat = { "Jakarta-Bali, Senin, 25 Mei 2020, 08:00 WIB", "Jakarta-Bali, Selasa, 26 Mei 2020, 13:00 WIB",
+			"Jakarta-Bali, Rabu, 27 Mei 2020, 19:00 WIB" };
 
 	private List<String> kursiPesawat1 = new ArrayList<String>();
 	private List<String> kursiPesawat2 = new ArrayList<String>();
 	private List<String> kursiPesawat3 = new ArrayList<String>();
 
-	private String[] keberangkatanKereta = { "Kamis, 28 Mei 2020, 08:00 WIB", "Jumat, 29 Mei 2020, 13:00 WIB",
-			"Sabtu, 30 Mei 2020, 19:00 WIB" };
+	private String[] keberangkatanKereta = { "Jakarta-Sumedang, Kamis, 28 Mei 2020, 08:00 WIB", "Jakarta-Sumedang, Jumat, 29 Mei 2020, 13:00 WIB",
+			"Jakarta-Sumedang, Sabtu, 30 Mei 2020, 19:00 WIB" };
 
 	private List<String> kursiKereta1 = new ArrayList<String>();
 	private List<String> kursiKereta2 = new ArrayList<String>();
 	private List<String> kursiKereta3 = new ArrayList<String>();
 
-	private String[] keberangkatanBus = { "Minggu, 31 Mei 2020, 08:00 WIB", "Senin, 1 Juni 2020, 13:00 WIB",
-			"Selasa, 2 Juni 2020, 19:00 WIB" };
+	private String[] keberangkatanBus = { "Jakarta- Bandung, Minggu, 31 Mei 2020, 08:00 WIB", "Jakarta- Bandung, Senin, 1 Juni 2020, 13:00 WIB",
+			"Jakarta- Bandung, Selasa, 2 Juni 2020, 19:00 WIB" };
 
 	private List<String> kursiBus1 = new ArrayList<String>();
 	private List<String> kursiBus2 = new ArrayList<String>();
