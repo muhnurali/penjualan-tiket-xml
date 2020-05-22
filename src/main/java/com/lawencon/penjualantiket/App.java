@@ -29,9 +29,7 @@ public class App {
 		HeaderTransaksi header;
 		List<HeaderTransaksi> listHeader = new ArrayList<>();
 		List<DetailTransaksi> listDetail = new ArrayList<>();
-		transaksiController.addKursiPesawat();
-		transaksiController.addKursiKereta();
-		transaksiController.addKursiBus();
+		transaksiController.addKursi();
 
 		do {
 			transaksiController.showMenu();

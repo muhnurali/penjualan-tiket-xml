@@ -418,4 +418,10 @@ public class TransaksiController {
 		System.out.println("9. Checkout");
 		System.out.println("0. Exit");
 	}
+
+	public void addKursi() {
+		this.addKursiPesawat();
+		this.addKursiKereta();
+		this.addKursiBus();
+	}
 }
