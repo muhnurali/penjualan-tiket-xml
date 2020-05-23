@@ -63,21 +63,26 @@ public class HeaderTransaksiServiceImpl implements HeaderTransaksiService {
 	@Override
 	public void showHistory(List<HeaderTransaksi> listHeader) throws Exception {
 		System.out.println("=== HISTORY TRANSAKSI ===");
-		listHeader.forEach(x -> {
-			System.out.println("Id Transaksi : " + x.getIdHeader());
-			System.out.println("Vocer : " + x.getVocer());
-			System.out.println("Diskon : " + (x.getDiskon() * 100) + "%");
-			System.out.println("Total Bayar : Rp. " + x.getTotal());
-			x.getListDetail().forEach(y -> {
-				System.out.println("--------------------------------");
-				System.out.println("Nama : " + y.getNama());
-				System.out.println("Jenis Tiket : " + y.getJenisTiket());
-				System.out.println("Tanggal Berangkat : " + y.getBerangkat());
-				System.out.println("Kursi : " + y.getKursi());
-				System.out.println("Harga : " + y.getHarga());
+		if (listHeader.isEmpty()) {
+			System.out.println("Belum Ada Transaksi");
+		} else {
+			listHeader.forEach(x -> {
+				System.out.println("Id Transaksi : " + x.getIdHeader());
+				System.out.println("Vocer : " + x.getVocer());
+				System.out.println("Diskon : " + (x.getDiskon() * 100) + "%");
+				System.out.println("Total Bayar : Rp. " + x.getTotal());
+				x.getListDetail().forEach(y -> {
+					System.out.println("--------------------------------");
+					System.out.println("Nama : " + y.getNama());
+					System.out.println("Jenis Tiket : " + y.getJenisTiket());
+					System.out.println("Tanggal Berangkat : " + y.getBerangkat());
+					System.out.println("Kursi : " + y.getKursi());
+					System.out.println("Harga : " + y.getHarga());
+				});
+				System.out.println("=================================");
 			});
-			System.out.println("=================================\n");
-		});
+		}
+		System.out.println();
 	}
 
 }

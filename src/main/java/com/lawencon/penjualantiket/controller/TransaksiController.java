@@ -42,7 +42,7 @@ public class TransaksiController {
 		try {
 			return detailService.selectKursiPesawat(noKeberangkatan, noKursi);
 		} catch (Exception e) {
-			return "Kursi tidak ditemukan";
+			return "";
 		}
 	}
 
@@ -142,7 +142,7 @@ public class TransaksiController {
 		try {
 			return detailService.selectKursiKereta(noKeberangkatan, noKursi);
 		} catch (Exception e) {
-			return "Kursi tidak ditemukan";
+			return "Error";
 		}
 	}
 
@@ -235,12 +235,14 @@ public class TransaksiController {
 				detail.setKursi(this.selectKursi(menu, kursi));
 				kondisi = true;
 			} catch (Exception e) {
-				System.out.println("Inputan Hanya Angka Yang Diperbolehkan");
+				System.out.println("Kursi Tidak Ditemukan");
 				kondisi = false;
 				sc.nextLine();
 			}
 		} while (kondisi == false);
 		listDetail.add(detail);
+		System.out.println("Tiket Berhasil Ditambahkan");
+		System.out.println();
 	}
 
 	public void transaksiKereta(DetailTransaksi detail, Scanner sc, String nama, boolean kondisi,
@@ -291,15 +293,17 @@ public class TransaksiController {
 			System.out.print("Pilih Kursi : ");
 			kursi = sc.nextInt();
 			try {
-				detail.setKursi(this.selectKursiKereta(menu, kursi));
+				detail.setKursi(this.selectKursi(menu, kursi));
 				kondisi = true;
 			} catch (Exception e) {
-				System.out.println("Inputan Hanya Angka Yang Diperbolehkan");
+				System.out.println("Kursi Tidak Ditemukan");
 				kondisi = false;
 				sc.nextLine();
 			}
 		} while (kondisi == false);
 		listDetail.add(detail);
+		System.out.println("Tiket Berhasil Ditambahkan");
+		System.out.println();
 	}
 
 	public void transaksiBus(DetailTransaksi detail, Scanner sc, String nama, int menu, boolean kondisi,
@@ -348,65 +352,72 @@ public class TransaksiController {
 			System.out.print("Pilih Kursi : ");
 			kursi = sc.nextInt();
 			try {
-				detail.setKursi(this.selectKursiBus(menu, kursi));
+				detail.setKursi(this.selectKursi(menu, kursi));
 				kondisi = true;
 			} catch (Exception e) {
-				System.out.println("Inputan Hanya Angka Yang Diperbolehkan");
+				System.out.println("Kursi Tidak Ditemukan");
 				kondisi = false;
 				sc.nextLine();
 			}
 		} while (kondisi == false);
 		listDetail.add(detail);
+		System.out.println("Tiket Berhasil Ditambahkan");
+		System.out.println();
 	}
 
 	public void checkOut(HeaderTransaksi header, int menu, Scanner sc, boolean kondisi, double total, String vocer,
 			List<HeaderTransaksi> listHeader, List<DetailTransaksi> listDetail) {
 		header.setIdHeader(ThreadLocalRandom.current().nextInt());
 
-		do {
-			System.out.print("Gunakan Vocer ? 1. Ya, 2. Tidak : ");
-			try {
-				menu = sc.nextInt();
-				if (menu < 1 && menu > 2) {
-					System.out.println("Menu Tidak Ditemukan");
-					kondisi = false;
-				} else {
-					if (menu == 1) {
-						sc.nextLine();
-						System.out.print("Masukan Kode Vocer : ");
-						vocer = sc.nextLine();
-						if (vocer.equals("")) {
-							System.out.println("Vocer Tidak Ditemukan");
-							kondisi = false;
-						} else if (this.cekVocer(vocer) == true) {
-							header.setVocer(vocer);
-							header.setDiskon(this.getDiskon(vocer));
-							System.out.println("Anda mendapatkan diskon " + header.getDiskon() * 100 + "%");
-							kondisi = true;
-						} else {
-							header.setVocer("");
-							System.out.println("Vocer Tidak Ditemukan");
+		if (listDetail.isEmpty()) {
+			System.out.println("Tiket Belum Ditambahkan");
+			System.out.println();
+		} else {
+			do {
+				System.out.print("Gunakan Vocer ? 1. Ya, 2. Tidak : ");
+				try {
+					menu = sc.nextInt();
+					if (menu < 1 && menu > 2) {
+						System.out.println("Menu Tidak Ditemukan");
+						kondisi = false;
+					} else {
+						if (menu == 1) {
+							sc.nextLine();
+							System.out.print("Masukan Kode Vocer : ");
+							vocer = sc.nextLine();
+							if (vocer.equals("")) {
+								System.out.println("Vocer Tidak Ditemukan");
+								kondisi = false;
+							} else if (this.cekVocer(vocer) == true) {
+								header.setVocer(vocer);
+								header.setDiskon(this.getDiskon(vocer));
+								System.out.println("Anda mendapatkan diskon " + header.getDiskon() * 100 + "%");
+								kondisi = true;
+							} else {
+								header.setVocer("");
+								System.out.println("Vocer Tidak Ditemukan");
+								kondisi = true;
+							}
+						} else if (menu == 2) {
 							kondisi = true;
 						}
-					} else if (menu == 2) {
-						kondisi = true;
 					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("Inputan Salah, Hanya Angka Yang Diperbolehkan");
+					kondisi = false;
+					sc.nextLine();
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Inputan Salah, Hanya Angka Yang Diperbolehkan");
-				kondisi = false;
-				sc.nextLine();
-			}
-		} while (kondisi == false);
+			} while (kondisi == false);
 
-		total = total - (total * header.getDiskon());
-		header.setTotal(total);
-		header.setListDetail(listDetail);
-		listHeader.add(header);
-		this.checkOut(header);
-		total = 0;
-		listDetail = new ArrayList<>();
+			total = total - (total * header.getDiskon());
+			header.setTotal(total);
+			header.setListDetail(listDetail);
+			listHeader.add(header);
+			this.checkOut(header);
+			total = 0;
+			listDetail = new ArrayList<>();
+		}
 	}
 
 	public void showMenu() {
